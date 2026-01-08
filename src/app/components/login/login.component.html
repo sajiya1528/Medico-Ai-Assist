@@ -1,0 +1,70 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="logo">
+                <mat-icon class="logo-icon">local_hospital</mat-icon>
+            </div>
+            <h1>Medico-AI Assist</h1>
+            <p class="subtitle">Welcome back! Please login to continue</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <!-- Role Selection -->
+            <div class="role-selector">
+                <button type="button" class="role-btn" [class.active]="selectedRole === 'patient'"
+                    (click)="selectedRole = 'patient'">
+                    <mat-icon>person</mat-icon>
+                    <span>Patient</span>
+                </button>
+                <button type="button" class="role-btn" [class.active]="selectedRole === 'doctor'"
+                    (click)="selectedRole = 'doctor'">
+                    <mat-icon>medical_services</mat-icon>
+                    <span>Doctor</span>
+                </button>
+            </div>
+
+            <!-- Email Input -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [(ngModel)]="email" name="email" required placeholder="Enter your email" />
+                <mat-icon matPrefix>email</mat-icon>
+            </mat-form-field>
+
+            <!-- Password Input -->
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password"
+                    required placeholder="Enter your password" />
+                <mat-icon matPrefix>lock</mat-icon>
+                <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+                    <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <!-- Error Message -->
+            <div class="error-message" *ngIf="errorMessage">
+                <mat-icon>error</mat-icon>
+                <span>{{ errorMessage }}</span>
+            </div>
+
+            <!-- Sample Credentials Info -->
+            <div class="info-box">
+                <mat-icon>info</mat-icon>
+                <div>
+                    <strong>Sample Credentials:</strong><br />
+                    {{ getSampleCredentials() }}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button mat-raised-button color="primary" type="submit" class="login-btn" [disabled]="!loginForm.valid">
+                <mat-icon>login</mat-icon>
+                Login as {{ selectedRole === 'doctor' ? 'Doctor' : 'Patient' }}
+            </button>
+        </form>
+
+        <div class="login-footer">
+            <p>University Project Demo - Local Storage Based System</p>
+        </div>
+    </div>
+</div>

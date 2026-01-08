@@ -1,0 +1,186 @@
+<div class="dashboard-container">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <mat-icon class="header-icon">local_hospital</mat-icon>
+                <div>
+                    <h1>Patient Dashboard</h1>
+                    <p class="welcome-text">Welcome, {{ currentUser?.name }}</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button mat-raised-button color="accent" (click)="openAIChatbot()">
+                    <mat-icon>smart_toy</mat-icon>
+                    AI Health Assistant
+                </button>
+                <button mat-raised-button color="warn" (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-content">
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <mat-icon class="stat-icon pending">schedule</mat-icon>
+                <div class="stat-info">
+                    <h3>{{ (appointments | filter: 'pending').length }}</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <mat-icon class="stat-icon confirmed">check_circle</mat-icon>
+                <div class="stat-info">
+                    <h3>{{ (appointments | filter: 'confirmed').length }}</h3>
+                    <p>Confirmed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <mat-icon class="stat-icon completed">done_all</mat-icon>
+                <div class="stat-info">
+                    <h3>{{ (appointments | filter: 'completed').length }}</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Chatbot Promo Card -->
+        <div class="ai-promo-card" (click)="openAIChatbot()">
+            <div class="promo-icon">
+                <mat-icon>smart_toy</mat-icon>
+            </div>
+            <div class="promo-content">
+                <h3>Need Quick Health Advice?</h3>
+                <p>Chat with our AI Health Assistant for instant answers to your health questions, symptom checking, and
+                    health tips!</p>
+            </div>
+            <button mat-raised-button color="primary">
+                <mat-icon>chat</mat-icon>
+                Start Chat
+            </button>
+        </div>
+
+        <!-- Book Appointment Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2>
+                    <mat-icon>add_circle</mat-icon>
+                    Book New Appointment
+                </h2>
+                <button mat-raised-button color="primary" (click)="toggleBookingForm()">
+                    <mat-icon>{{ showBookingForm ? 'close' : 'add' }}</mat-icon>
+                    {{ showBookingForm ? 'Cancel' : 'New Appointment' }}
+                </button>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form" *ngIf="showBookingForm">
+                <div class="success-message" *ngIf="bookingSuccess">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Appointment booked successfully!</span>
+                </div>
+
+                <form (ngSubmit)="bookAppointment()" #bookingForm="ngForm">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Select Doctor</mat-label>
+                            <mat-select [(ngModel)]="selectedDoctorId" name="doctor" required>
+                                <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+                                    {{ doctor.name }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>medical_services</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Select Date</mat-label>
+                            <input matInput type="date" [(ngModel)]="selectedDate" name="date" [min]="minDate"
+                                required />
+                            <mat-icon matPrefix>calendar_today</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Select Time Slot</mat-label>
+                            <mat-select [(ngModel)]="selectedTimeSlot" name="timeSlot" required>
+                                <mat-option *ngFor="let slot of availableTimeSlots" [value]="slot">
+                                    {{ slot }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matPrefix>access_time</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <button mat-raised-button color="primary" type="submit" [disabled]="!bookingForm.valid"
+                        class="submit-btn">
+                        <mat-icon>event_available</mat-icon>
+                        Book Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- My Appointments -->
+        <div class="card">
+            <div class="card-header">
+                <h2>
+                    <mat-icon>event_note</mat-icon>
+                    My Appointments
+                </h2>
+            </div>
+
+            <div class="appointments-list" *ngIf="appointments.length > 0; else noAppointments">
+                <div class="appointment-item" *ngFor="let appointment of appointments">
+                    <div class="appointment-info">
+                        <div class="appointment-doctor">
+                            <mat-icon>medical_services</mat-icon>
+                            <strong>{{ appointment.doctorName }}</strong>
+                        </div>
+                        <div class="appointment-details">
+                            <div class="detail-item">
+                                <mat-icon>calendar_today</mat-icon>
+                                <span>{{ appointment.date | date: 'mediumDate' }}</span>
+                            </div>
+                            <div class="detail-item">
+                                <mat-icon>access_time</mat-icon>
+                                <span>{{ appointment.timeSlot }}</span>
+                            </div>
+                        </div>
+                        <span class="status-badge" [ngClass]="getStatusClass(appointment.status)">
+                            {{ appointment.status }}
+                        </span>
+                    </div>
+                    <div class="appointment-actions">
+                        <button mat-raised-button color="primary" *ngIf="canJoinCall(appointment)"
+                            (click)="joinCall(appointment)">
+                            <mat-icon>videocam</mat-icon>
+                            Join Call
+                        </button>
+                        <button mat-stroked-button color="warn" *ngIf="appointment.status === 'pending'"
+                            (click)="cancelAppointment(appointment.id)">
+                            <mat-icon>cancel</mat-icon>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #noAppointments>
+                <div class="empty-state">
+                    <mat-icon>event_busy</mat-icon>
+                    <p>No appointments found</p>
+                    <button mat-raised-button color="primary" (click)="toggleBookingForm()">
+                        Book Your First Appointment
+                    </button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

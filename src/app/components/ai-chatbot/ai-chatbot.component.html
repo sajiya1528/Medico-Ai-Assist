@@ -1,0 +1,124 @@
+<div class="chatbot-container">
+    <!-- Sidebar -->
+    <aside class="chat-sidebar" [class.collapsed]="!showSidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <mat-icon>chat</mat-icon>
+                <h3 *ngIf="showSidebar">Chat History</h3>
+            </div>
+            <button mat-icon-button (click)="startNewChat()" matTooltip="New Chat" *ngIf="showSidebar">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </div>
+
+        <div class="chat-sessions" *ngIf="showSidebar">
+            <div class="chat-session-item" *ngFor="let session of chatSessions"
+                [class.active]="session.id === currentSessionId" (click)="loadChat(session)">
+                <div class="session-info">
+                    <mat-icon>chat_bubble</mat-icon>
+                    <div class="session-details">
+                        <span class="session-title">{{ session.title }}</span>
+                        <span class="session-date">{{ session.createdAt | date: 'short' }}</span>
+                    </div>
+                </div>
+                <button mat-icon-button (click)="deleteChat(session.id, $event)" class="delete-btn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+
+            <div class="empty-sessions" *ngIf="chatSessions.length === 0">
+                <mat-icon>chat_bubble_outline</mat-icon>
+                <p>No chat history</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <div class="chat-main">
+        <!-- Header -->
+        <header class="chat-header">
+            <button mat-icon-button (click)="toggleSidebar()" class="sidebar-toggle">
+                <mat-icon>{{ showSidebar ? 'chevron_left' : 'menu' }}</mat-icon>
+            </button>
+            <div class="header-info">
+                <div class="bot-avatar">
+                    <mat-icon>smart_toy</mat-icon>
+                </div>
+                <div class="bot-details">
+                    <h2>AI Health Assistant</h2>
+                    <p class="bot-status">
+                        <span class="status-indicator"></span>
+                        Always available
+                    </p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button mat-icon-button matTooltip="Clear chat" (click)="startNewChat()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+            </div>
+        </header>
+
+        <!-- Messages Container -->
+        <div class="messages-container" #messagesContainer>
+            <div class="messages-wrapper">
+                <div class="message-group" *ngFor="let message of messages">
+                    <div class="message" [class.user-message]="!message.isBot" [class.bot-message]="message.isBot">
+                        <div class="message-avatar" *ngIf="message.isBot">
+                            <mat-icon>smart_toy</mat-icon>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble">
+                                <p [innerHTML]="message.text | slice:0:1000"></p>
+                            </div>
+                            <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+
+                            <!-- Quick Reply Options -->
+                            <div class="quick-replies" *ngIf="message.options && message.options.length > 0">
+                                <button mat-stroked-button *ngFor="let option of message.options"
+                                    (click)="sendQuickReply(option)" class="quick-reply-btn">
+                                    {{ option }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="message-avatar" *ngIf="!message.isBot">
+                            <mat-icon>person</mat-icon>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="message bot-message" *ngIf="isTyping">
+                    <div class="message-avatar">
+                        <mat-icon>smart_toy</mat-icon>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-container">
+            <div class="chat-input-wrapper">
+                <mat-form-field appearance="outline" class="message-input">
+                    <mat-icon matPrefix>edit</mat-icon>
+                    <input matInput [(ngModel)]="userInput" (keyup.enter)="sendMessage()"
+                        placeholder="Type your message here..." autocomplete="off">
+                </mat-form-field>
+                <button mat-fab color="primary" (click)="sendMessage()" [disabled]="!userInput.trim()" class="send-btn">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div>
+            <div class="input-hints">
+                <mat-icon>info</mat-icon>
+                <span>Ask me about symptoms, health tips, or book an appointment</span>
+            </div>
+        </div>
+    </div>
+</div>

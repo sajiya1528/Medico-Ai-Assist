@@ -1,59 +1,205 @@
-# MedicotBot
+# Medico - AI Assist
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+A complete Angular-based Doctor Appointment and Consultation system built for university project demonstration. This application uses Local Storage to persist data without requiring a backend setup.
 
-## Development server
+## Features
 
-To start a local development server, run:
+### 🔐 Dual Login System
+- Single login page with role toggle (Doctor/Patient)
+- Hardcoded sample credentials for easy demo
+- Role-based authentication and route protection
 
-```bash
-ng serve
+### 👨‍⚕️ Doctor Dashboard
+- **Appointment Manager**: View and manage all incoming appointment requests
+- **Approve/Cancel**: Quick actions to approve or cancel appointments
+- **Patient List**: View all patients who have booked appointments
+- **Statistics**: Real-time stats for pending, confirmed, and completed appointments
+
+### 👤 Patient Dashboard
+- **Book Appointment**: Simple form to select doctor, date, and time slot
+- **My Appointments**: View all booked appointments with status
+- **Join Call**: Access video consultation for confirmed appointments
+- **Cancel Appointments**: Cancel pending appointments
+
+### 📹 Video Consultation
+- Mock video call interface with camera preview
+- Call controls (Mute, Video On/Off, End Call)
+- Call duration timer
+- Professional consultation UI
+
+## Sample Credentials
+
+### Doctor Login
+- Email: `doctor@test.com`
+- Password: `doctor123`
+
+Alternative:
+- Email: `doctor2@test.com`
+- Password: `doctor123`
+
+### Patient Login
+- Email: `patient@test.com`
+- Password: `patient123`
+
+Alternative:
+- Email: `patient2@test.com`
+- Password: `patient123`
+
+## Technology Stack
+
+- **Framework**: Angular 17
+- **UI Library**: Angular Material
+- **Styling**: CSS with custom healthcare theme
+- **Storage**: Browser Local Storage
+- **Routing**: Angular Router with AuthGuard
+- **State Management**: RxJS
+
+## Installation & Setup
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+
+### Steps
+
+1. **Navigate to project directory**
+   ```bash
+   cd medico-bot
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the application**
+   ```bash
+   npm start
+   ```
+
+4. **Open in browser**
+   Navigate to `http://localhost:4200`
+
+## Project Structure
+
+```
+medico-bot/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── login/
+│   │   │   ├── patient-dashboard/
+│   │   │   ├── doctor-dashboard/
+│   │   │   └── consultation/
+│   │   ├── services/
+│   │   │   ├── auth.service.ts
+│   │   │   └── appointment.service.ts
+│   │   ├── guards/
+│   │   │   └── auth.guard.ts
+│   │   ├── models/
+│   │   │   └── models.ts
+│   │   ├── pipes/
+│   │   │   └── filter.pipe.ts
+│   │   ├── app-routing.module.ts
+│   │   └── app.module.ts
+│   ├── styles.css
+│   └── index.html
+├── angular.json
+├── package.json
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## How to Use
 
-## Code scaffolding
+### As a Patient
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Login**: Select "Patient" role and use patient credentials
+2. **Book Appointment**:
+   - Click "New Appointment"
+   - Select a doctor from the dropdown
+   - Choose a date and time slot
+   - Submit the form
+3. **View Appointments**: See all your appointments with their status
+4. **Join Consultation**: Click "Join Call" for confirmed appointments
+5. **Cancel**: Cancel pending appointments if needed
 
-```bash
-ng generate component component-name
-```
+### As a Doctor
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Login**: Select "Doctor" role and use doctor credentials
+2. **Manage Appointments**:
+   - View all incoming appointment requests
+   - Approve pending appointments
+   - Cancel appointments if necessary
+   - Mark appointments as completed
+3. **View Patients**: Switch to "Patient List" tab to see all patients
+4. **Statistics**: Monitor appointment stats on the dashboard
 
-```bash
-ng generate --help
-```
+## Features Highlights
 
-## Building
+### Local Storage Implementation
+- All data persists in browser's Local Storage
+- No backend required for demo
+- Data survives page refreshes
+- Easy to reset by clearing browser storage
 
-To build the project run:
+### Authentication & Security
+- Role-based access control
+- Route guards prevent unauthorized access
+- Automatic redirection based on user role
+- Session management with logout functionality
 
-```bash
-ng build
-```
+### Responsive Design
+- Mobile-friendly interface
+- Adaptive layouts for all screen sizes
+- Touch-friendly controls
+- Professional healthcare theme
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### User Experience
+- Smooth animations and transitions
+- Real-time status updates
+- Intuitive navigation
+- Clear visual feedback
 
-## Running unit tests
+## Color Scheme
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+The application uses a professional healthcare color palette:
+- **Primary Blue**: #2196F3 (Trust, professionalism)
+- **Accent Cyan**: #00BCD4 (Medical, clean)
+- **Success Green**: #4CAF50 (Confirmed, positive)
+- **Warning Orange**: #FF9800 (Pending, attention)
+- **Danger Red**: #F44336 (Cancelled, critical)
 
-```bash
-ng test
-```
+## Browser Compatibility
 
-## Running end-to-end tests
+- Chrome (recommended)
+- Firefox
+- Edge
+- Safari
 
-For end-to-end (e2e) testing, run:
+## Notes for Demo
 
-```bash
-ng e2e
-```
+- Data is stored in browser's Local Storage
+- Clear browser storage to reset all data
+- Use different browser profiles to test multiple users simultaneously
+- Video consultation is a mockup UI (no actual video streaming)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Future Enhancements
 
-## Additional Resources
+- Real video calling integration (WebRTC)
+- Email notifications
+- Prescription management
+- Medical records storage
+- Payment integration
+- Multi-language support
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+
+This is a university project for educational purposes.
+
+## Support
+
+For any issues or questions, please refer to the project documentation or contact the development team.
+
+---
+
+**Built with ❤️ using Angular and Angular Material**
