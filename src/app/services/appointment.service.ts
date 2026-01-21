@@ -58,7 +58,7 @@ export class AppointmentService {
     }
 
     getAppointmentsByDoctor(doctorId: string): Appointment[] {
-        return this.getAppointments().filter(apt => apt.doctorId === doctorId);
+         return this.getAppointments().filter(apt => apt.doctorId === doctorId);
     }
 
     getAllAppointments(): Appointment[] {
