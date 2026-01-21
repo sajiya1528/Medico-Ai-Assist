@@ -46,16 +46,54 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
         'check symptoms': {
             text: "I can help you understand your symptoms. Please describe what you're experiencing:",
             options: [
-                'Fever and headache',
+                'Fever ',
+                'headache',
                 'Cough and cold',
                 'Stomach pain',
                 'Back pain',
                 'Other symptoms'
             ]
         },
-        'fever and headache': {
+        'fever': {
+            text: "Please tell me your temperature in degrees (fahrenheit).",
+            options: ["98-99°F", "100-101°F", "102°F or higher"]
+        },
+        'fever response': {
             text: "Fever and headache can be symptoms of various conditions like flu, viral infection, or stress. I recommend:\n\n• Rest and stay hydrated\n• Take over-the-counter pain relievers\n• Monitor your temperature\n• If fever persists for more than 3 days, consult a doctor\n\nWould you like to book an appointment with a doctor?",
+            
             options: ['Book appointment', 'More health tips', 'Ask another question']
+        },
+        '98-99°f': {
+            text: "Your temperature is between 98 to 99°F. This is normal. No need to worry. Stay hydrated and take rest.",
+            options: [
+                'Health tips',
+                'Book appointment',
+                'Ask another question'
+            ]
+        },
+        '100-101°f': {
+            text: "Your temperature is between 100 to 101°F. This shows mild fever. Please take rest and drink warm fluids.",
+            options: [
+                'Health tips',
+                'Book appointment',
+                'Emergency info'
+            ]
+        },
+        '102°f or higher': {
+            text: "Your temperature is 102°F or higher. This is high fever. Please consult a doctor immediately.",
+            options: [
+                'Book appointment',
+                'Emergency info',
+                'Ask another question'
+            ]
+        },
+        'headache': {
+            text: "For headache, here are some recommendations. Get enough rest, drink plenty of water, and avoid screen time. If pain continues, consult a doctor.",
+            options: [
+                'Book appointment',
+                'More remedies',
+                'Ask another question'
+            ]
         },
         'cough and cold': {
             text: "For cough and cold, here are some recommendations:\n\n• Get plenty of rest\n• Drink warm fluids\n• Use a humidifier\n• Gargle with salt water\n• Take vitamin C\n\nIf symptoms worsen or persist beyond a week, please consult a doctor.",
@@ -63,8 +101,7 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
         },
         'stomach pain': {
             text: "Stomach pain can have various causes. Here's what you can do:\n\n• Avoid heavy meals\n• Stay hydrated\n• Try peppermint tea\n• Rest in a comfortable position\n\n⚠️ If you experience severe pain, vomiting, or fever, seek immediate medical attention.",
-            options: ['Book appointment', 'Emergency info', 'Ask another question']
-        },
+            options: ['Book appointment', 'Emergency info', 'Ask another question']   },
         'back pain': {
             text: "For back pain relief:\n\n• Apply heat or cold packs\n• Gentle stretching exercises\n• Maintain good posture\n• Avoid heavy lifting\n• Consider physiotherapy\n\nIf pain is severe or persistent, I recommend consulting an orthopedic specialist.",
             options: ['Book appointment', 'Exercise tips', 'Ask another question']
