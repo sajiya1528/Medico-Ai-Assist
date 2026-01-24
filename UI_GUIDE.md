@@ -133,7 +133,7 @@
 
 ---
 
-## 🎨 Color Coding System
+## Color Coding System
 
 ### Status Badges
 - **Pending**: Orange background (#FFF3E0), dark orange text
