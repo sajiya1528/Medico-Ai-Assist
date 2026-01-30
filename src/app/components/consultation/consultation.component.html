@@ -1,0 +1,73 @@
+<div class="consultation-container">
+    <div class="video-grid">
+        <!-- Main Video (Remote) -->
+        <div class="main-video">
+            <div class="video-placeholder">
+                <mat-icon class="video-icon">videocam</mat-icon>
+                <p class="participant-name">{{ appointment?.doctorName || appointment?.patientName }}</p>
+                <div class="video-overlay" *ngIf="isVideoOff">
+                    <mat-icon>videocam_off</mat-icon>
+                    <p>Video Off</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Self Video (Local) -->
+        <div class="self-video">
+            <div class="video-placeholder small">
+                <mat-icon class="video-icon-small">person</mat-icon>
+                <p class="self-label">You</p>
+                <div class="video-overlay" *ngIf="isVideoOff">
+                    <mat-icon>videocam_off</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Info Bar -->
+    <div class="call-info">
+        <div class="call-details">
+            <mat-icon>schedule</mat-icon>
+            <span class="duration">{{ getFormattedDuration() }}</span>
+        </div>
+        <div class="appointment-info">
+            <strong>Consultation with {{ appointment?.doctorName || appointment?.patientName }}</strong>
+            <span class="date-time">
+                {{ appointment?.date | date: 'mediumDate' }} at {{ appointment?.timeSlot }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Control Bar -->
+    <div class="control-bar">
+        <div class="controls">
+            <button mat-fab [color]="isMuted ? 'warn' : 'primary'" (click)="toggleMute()" class="control-btn"
+                matTooltip="{{ isMuted ? 'Unmute' : 'Mute' }}">
+                <mat-icon>{{ isMuted ? 'mic_off' : 'mic' }}</mat-icon>
+            </button>
+
+            <button mat-fab [color]="isVideoOff ? 'warn' : 'primary'" (click)="toggleVideo()" class="control-btn"
+                matTooltip="{{ isVideoOff ? 'Turn On Video' : 'Turn Off Video' }}">
+                <mat-icon>{{ isVideoOff ? 'videocam_off' : 'videocam' }}</mat-icon>
+            </button>
+
+            <button mat-fab color="warn" (click)="endCall()" class="control-btn end-call" matTooltip="End Call">
+                <mat-icon>call_end</mat-icon>
+            </button>
+
+            <button mat-fab color="accent" class="control-btn" matTooltip="Chat">
+                <mat-icon>chat</mat-icon>
+            </button>
+
+            <button mat-fab color="accent" class="control-btn" matTooltip="Screen Share">
+                <mat-icon>screen_share</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Demo Notice -->
+    <div class="demo-notice">
+        <mat-icon>info</mat-icon>
+        <span>This is a mockup video consultation interface for demonstration purposes</span>
+    </div>
+</div>

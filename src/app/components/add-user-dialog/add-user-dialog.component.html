@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>Add New User</h2>
+
+<mat-dialog-content>
+    <form (ngSubmit)="onSubmit()" #addUserForm="ngForm">
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="error-message">
+            <mat-icon>error</mat-icon>
+            <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Name Field -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input 
+                matInput 
+                [(ngModel)]="name" 
+                name="name"
+                required
+                placeholder="Enter full name">
+        </mat-form-field>
+
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email Address</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input 
+                matInput 
+                [(ngModel)]="email" 
+                name="email"
+                type="email"
+                required
+                placeholder="Enter email address">
+        </mat-form-field>
+
+        <!-- Role Selection -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Role</mat-label>
+            <mat-icon matPrefix>badge</mat-icon>
+            <mat-select [(ngModel)]="role" name="role" required>
+                <mat-option value="doctor">
+                    <mat-icon class="option-icon">medical_services</mat-icon>
+                    Doctor
+                </mat-option>
+                <mat-option value="patient">
+                    <mat-icon class="option-icon">person</mat-icon>
+                    Patient
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input 
+                matInput 
+                [type]="showPassword ? 'text' : 'password'" 
+                [(ngModel)]="password" 
+                name="password"
+                required
+                placeholder="Enter password (min 6 characters)">
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+                <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <!-- Confirm Password Field -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input 
+                matInput 
+                [type]="showConfirmPassword ? 'text' : 'password'" 
+                [(ngModel)]="confirmPassword" 
+                name="confirmPassword"
+                required
+                placeholder="Confirm password">
+            <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPasswordVisibility()">
+                <mat-icon>{{ showConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="onSubmit()" 
+        [disabled]="!isFormValid()">
+        <mat-icon>person_add</mat-icon>
+        Add User
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,86 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div class="header-content">
+            <mat-icon class="role-icon">{{ getRoleIcon(user.role) }}</mat-icon>
+            <div>
+                <h2>User Details</h2>
+                <p class="user-name">{{ user.name }}</p>
+            </div>
+        </div>
+        <button mat-icon-button (click)="onClose()" class="close-btn">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <mat-card class="user-details-card">
+        <mat-card-content>
+            <!-- User Information Grid -->
+            <div class="details-grid">
+                <!-- Name -->
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <mat-icon>person</mat-icon>
+                        Full Name
+                    </div>
+                    <div class="detail-value">{{ user.name }}</div>
+                </div>
+
+                <!-- Email -->
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <mat-icon>email</mat-icon>
+                        Email Address
+                    </div>
+                    <div class="detail-value">{{ user.email }}</div>
+                </div>
+
+                <!-- Phone -->
+                <div class="detail-item" *ngIf="user.phone">
+                    <div class="detail-label">
+                        <mat-icon>phone</mat-icon>
+                        Phone Number
+                    </div>
+                    <div class="detail-value">{{ user.phone }}</div>
+                </div>
+
+                <!-- Role -->
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <mat-icon>badge</mat-icon>
+                        Role
+                    </div>
+                    <div class="detail-value">
+                        <span [class]="'role-badge ' + getRoleColor(user.role)">
+                            {{ getRoleLabel(user.role) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Specialization (for doctors only) -->
+                <div class="detail-item" *ngIf="user.role === 'doctor' && user.specialization">
+                    <div class="detail-label">
+                        <mat-icon>stethoscope</mat-icon>
+                        Specialization
+                    </div>
+                    <div class="detail-value">{{ user.specialization }}</div>
+                </div>
+
+                <!-- User ID -->
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <mat-icon>fingerprint</mat-icon>
+                        User ID
+                    </div>
+                    <div class="detail-value user-id">{{ user.id }}</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <div class="dialog-footer">
+        <button mat-raised-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+            Close
+        </button>
+    </div>
+</div>

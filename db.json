@@ -1,0 +1,161 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Dey Silva",
+      "email": "john@example.com",
+      "role": "patient",
+      "specialization": null,
+      "phone": "555-0101",
+      "createdAt": "2026-01-01T10:00:00Z",
+      "password": "patient123"
+    },
+    {
+      "id": "2",
+      "name": "Dr. Sarah Smith",
+      "email": "sarah@example.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "specialization": "Cardiology",
+      "phone": "555-0102",
+      "createdAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Dr. Robert Johnson",
+      "email": "robert@example.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "specialization": "General Medicine",
+      "phone": "555-0103",
+      "createdAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "patient123",
+      "role": "patient",
+      "specialization": null,
+      "phone": "555-0104",
+      "createdAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Dr. Emily Davis",
+      "email": "emily@example.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "specialization": "Dermatology",
+      "phone": "555-0105",
+      "createdAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "id": "6",
+      "name": "Admin User",
+      "email": "admin@medico.com",
+      "password": "admin123",
+      "role": "admin",
+      "specialization": null,
+      "phone": "555-0106",
+      "createdAt": "2026-01-01T10:00:00Z"
+    },
+    {
+      "name": "Ramesh Sippy",
+      "email": "ramesh@example.com",
+      "password": "doctor123",
+      "role": "doctor",
+      "id": "8"
+    },
+    {
+      "name": "Pavan Verma",
+      "email": "pavan@example.com",
+      "password": "patient123",
+      "role": "patient",
+      "id": "9"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt-001",
+      "patientId": "1",
+      "patientName": "John Doe",
+      "doctorId": "2",
+      "doctorName": "Dr. Sarah Smith",
+      "date": "2026-02-01",
+      "timeSlot": "10:00 AM",
+      "status": "completed",
+      "createdAt": "2026-01-15T14:30:00Z"
+    },
+    {
+      "id": "apt-002",
+      "patientId": "1",
+      "patientName": "John Doe",
+      "doctorId": "3",
+      "doctorName": "Dr. Robert Johnson",
+      "date": "2026-02-05",
+      "timeSlot": "02:00 PM",
+      "status": "pending",
+      "createdAt": "2026-01-20T09:15:00Z"
+    },
+    {
+      "id": "apt-003",
+      "patientId": "4",
+      "patientName": "Jane Smith",
+      "doctorId": "5",
+      "doctorName": "Dr. Emily Davis",
+      "date": "2026-02-10",
+      "timeSlot": "03:00 PM",
+      "status": "completed",
+      "createdAt": "2026-01-10T11:00:00Z"
+    },
+    {
+      "patientId": "9",
+      "patientName": "Pavan Verma",
+      "doctorId": "2",
+      "doctorName": "Dr. Sarah Smith",
+      "date": "2026-02-15",
+      "timeSlot": "02:00 PM",
+      "status": "completed",
+      "id": "apt_1769446432168_optrblwn8",
+      "createdAt": "2026-01-26T16:53:52.168Z"
+    },
+    {
+      "patientId": "1",
+      "patientName": "John Dey Silva",
+      "doctorId": "2",
+      "doctorName": "Dr. Sarah Smith",
+      "date": "2026-02-10",
+      "timeSlot": "02:00 PM",
+      "status": "completed",
+      "id": "apt_1769537464761_2exsakogl",
+      "createdAt": "2026-01-27T18:11:04.761Z"
+    }
+  ],
+  "chatSessions": [
+    {
+      "id": "session-001",
+      "patientId": "1",
+      "title": "Chat 1",
+      "createdAt": "2026-01-20T10:00:00Z",
+      "messages": [
+        {
+          "text": "Hello! I'm your AI Health Assistant. How can I help you today?",
+          "isBot": true,
+          "timestamp": "2026-01-20T10:00:00Z",
+          "options": [
+            "Check symptoms",
+            "Book appointment",
+            "Health tips",
+            "Emergency info"
+          ]
+        },
+        {
+          "text": "I have a headache",
+          "isBot": false,
+          "timestamp": "2026-01-20T10:05:00Z"
+        }
+      ]
+    }
+  ]
+}

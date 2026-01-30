@@ -1,0 +1,156 @@
+.dialog-container {
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+    padding: 30px;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin: -24px -24px 16px -24px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.role-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dialog-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dialog-header p {
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.close-btn {
+    color: white !important;
+    flex-shrink: 0;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-details-card {
+    margin-bottom: 12px;
+    padding: 0 !important;
+}
+
+.user-details-card mat-card-content {
+    padding: 12px 0;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0;
+}
+
+@media (min-width: 600px) {
+    .details-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    background-color: #f5f7fa;
+    border-radius: 6px;
+    border-left: 3px solid #667eea;
+}
+
+.detail-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.detail-label mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    color: #667eea;
+}
+
+.detail-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    word-break: break-word;
+}
+
+.user-id {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #666;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-badge.doctor-badge {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.role-badge.patient-badge {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+}
+
+.role-badge.admin-badge {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.dialog-footer button {
+    min-width: 80px;
+}

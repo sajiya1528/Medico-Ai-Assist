@@ -1,0 +1,136 @@
+<div class="profile-container">
+    <!-- Header -->
+    <div class="profile-header">
+        <h1>Profile</h1>
+        <button mat-icon-button (click)="closeDialog()" matTooltip="Close">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="saveSuccess" class="alert alert-success">
+        <mat-icon>check_circle</mat-icon>
+        <span>Profile updated successfully!</span>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="saveError" class="alert alert-error">
+        <mat-icon>error</mat-icon>
+        <span>{{ saveError }}</span>
+    </div>
+
+    <!-- Profile Card -->
+    <mat-card class="profile-card">
+        <!-- Profile Header Info -->
+        <div class="profile-info-header">
+            <div class="profile-avatar">
+                <mat-icon>{{ getRoleIcon() }}</mat-icon>
+            </div>
+            <div class="profile-title-section">
+                <h2 class="profile-title">{{ currentUser?.name }}</h2>
+                <p class="profile-role">
+                    <mat-icon class="role-icon">{{ getRoleIcon() }}</mat-icon>
+                    {{ getRoleDisplayName() }}
+                </p>
+            </div>
+            <button 
+                mat-raised-button 
+                [color]="isEditing ? 'warn' : 'primary'"
+                (click)="toggleEditMode()"
+                class="edit-button">
+                <mat-icon>{{ isEditing ? 'close' : 'edit' }}</mat-icon>
+                <span>{{ isEditing ? 'Cancel' : 'Edit' }}</span>
+            </button>
+        </div>
+
+        <!-- Profile Content -->
+        <mat-card-content class="profile-content">
+            <form [ngClass]="{ 'editing-mode': isEditing }">
+                <!-- Name Field -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Full Name</mat-label>
+                    <mat-icon matPrefix>person</mat-icon>
+                    <input 
+                        matInput 
+                        [(ngModel)]="editForm.name" 
+                        name="name"
+                        [readonly]="!isEditing"
+                        placeholder="Enter your full name">
+                </mat-form-field>
+
+                <!-- Email Field -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email Address</mat-label>
+                    <mat-icon matPrefix>email</mat-icon>
+                    <input 
+                        matInput 
+                        [(ngModel)]="editForm.email" 
+                        name="email"
+                        [readonly]="!isEditing"
+                        type="email"
+                        placeholder="Enter your email address">
+                </mat-form-field>
+
+                <!-- User ID (Read-only) -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>User ID</mat-label>
+                    <mat-icon matPrefix>badge</mat-icon>
+                    <input 
+                        matInput 
+                        [value]="currentUser?.id" 
+                        readonly
+                        placeholder="User ID">
+                </mat-form-field>
+
+                <!-- Role (Read-only) -->
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Role</mat-label>
+                    <mat-icon matPrefix>{{ getRoleIcon() }}</mat-icon>
+                    <input 
+                        matInput 
+                        [value]="getRoleDisplayName()" 
+                        readonly
+                        placeholder="Role">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+
+        <!-- Action Buttons -->
+        <mat-card-actions *ngIf="isEditing" class="edit-actions">
+            <button 
+                mat-raised-button 
+                color="primary" 
+                (click)="saveProfile()"
+                class="save-button">
+                <mat-icon>save</mat-icon>
+                <span>Save Changes</span>
+            </button>
+            <button 
+                mat-stroked-button 
+                (click)="toggleEditMode()"
+                class="cancel-button">
+                <mat-icon>cancel</mat-icon>
+                <span>Cancel</span>
+            </button>
+        </mat-card-actions>
+
+        <!-- Dialog Footer -->
+        <div class="dialog-footer">
+            <button 
+                mat-raised-button 
+                color="warn"
+                (click)="logout()"
+                class="logout-button">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </button>
+            <button 
+                mat-stroked-button 
+                (click)="closeDialog()"
+                class="close-button">
+                <mat-icon>close</mat-icon>
+                <span>Close</span>
+            </button>
+        </div>
+    </mat-card>
+</div>
