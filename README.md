@@ -1,4 +1,15 @@
-# Medico - AI Assist
+✨ Medico - AI Assist 💙
+🌟 Project Overview
+
+Medico - AI Assist is a smart healthcare management web application developed using Angular 17 for university project demonstration. 🚀
+
+The system simulates a real-world Doctor Appointment & Consultation Platform with secure role-based access for 👨‍⚕️ Doctor, 👤 Patient, and 🛡️ Admin.
+
+It provides:
+📅 Appointment Booking
+📹 Video Consultation (Mock UI)
+👥 User Management
+🤖 AI-Powered Medical Chatbot# Medico - AI Assist
 
 A complete Angular-based Doctor Appointment and Consultation system built for university project demonstration. This application uses Local Storage to persist data without requiring a backend setup.
 
@@ -304,3 +315,12 @@ For any issues or questions, please refer to the project documentation or contac
 ---
 
 **Built with ❤️ using Angular and Angular Material**
+:
+
+👩‍💻 Author
+
+Sajiya Nazir
+  github : sajiya1528 (https://github.com/sajiya1528/Medico-Ai-Assist.git)
+🎓 B.Tech / Computer Science Student
+💻 Frontend Developer | Angular Enthusiast
+🚀 Passionate about building smart healthcare & AI-based web applications
