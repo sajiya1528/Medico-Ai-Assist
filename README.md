@@ -1,15 +1,20 @@
-✨ Medico - AI Assist 💙
-🌟 Project Overview
+# 🏥✨ Medico - AI Assist 🤖💙  
 
-Medico - AI Assist is a smart healthcare management web application developed using Angular 17 for university project demonstration. 🚀
+## 🌟 Project Overview  
 
-The system simulates a real-world Doctor Appointment & Consultation Platform with secure role-based access for 👨‍⚕️ Doctor, 👤 Patient, and 🛡️ Admin.
+Medico - AI Assist is a smart healthcare management web application developed using Angular 17 for university project demonstration. 🚀  
 
-It provides:
-📅 Appointment Booking
-📹 Video Consultation (Mock UI)
-👥 User Management
-🤖 AI-Powered Medical Chatbot# Medico - AI Assist
+The system simulates a real-world Doctor Appointment & Consultation Platform with secure role-based access for 👨‍⚕️ Doctor, 👤 Patient, and 🛡️ Admin.  
+
+It provides:  
+
+📅 Appointment Booking  
+📹 Video Consultation (Mock UI)  
+👥 User Management  
+🤖 AI-Powered Medical Chatbot  
+
+All data is securely stored using 💾 Browser Local Storage, meaning no backend setup is required — making it perfect for academic demonstrations and project presentations. 🎓  
+
 
 A complete Angular-based Doctor Appointment and Consultation system built for university project demonstration. This application uses Local Storage to persist data without requiring a backend setup.
 
@@ -315,12 +320,15 @@ For any issues or questions, please refer to the project documentation or contac
 ---
 
 **Built with ❤️ using Angular and Angular Material**
-:
 
-👩‍💻 Author
+## 👩‍💻 Author  
 
-Sajiya Nazir
-  github : sajiya1528 (https://github.com/sajiya1528/Medico-Ai-Assist.git)
-🎓 B.Tech / Computer Science Student
-💻 Frontend Developer | Angular Enthusiast
-🚀 Passionate about building smart healthcare & AI-based web applications
+**Sajiya Nazir**  
+
+ 👤 github : sajiya1528 (https://github.com/sajiya1528/Medico-Ai-Assist.git)
+
+🎓 B.Tech / Computer Science Student  
+
+💻 Frontend Developer | Angular Enthusiast  
+
+🚀 Passionate about building smart healthcare & AI-based web applications  
