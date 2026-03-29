@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, Inject, Optional } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { OpenaiService } from '../../services/openai.service';
 import { User } from '../../models/models';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIcon } from "@angular/material/icon";
@@ -52,8 +53,8 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
     showSidebar: boolean = true;
     isExpanded: boolean = false;
 
-    // Predefined responses for the AI chatbot
-    private responses: { [key: string]: { text: string, options?: string[] } } = {
+    // Fallback responses for when API is unavailable
+    private fallbackResponses: { [key: string]: { text: string, options?: string[] } } = {
         'greeting': {
             text: "Hello! I'm your AI Health Assistant. How can I help you today?",
             options: [
@@ -63,111 +64,15 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
                 'Emergency info'
             ]
         },
-        'check symptoms': {
-            text: "I can help you understand your symptoms. Please describe what you're experiencing:",
-            options: [
-                'Fever ',
-                'headache',
-                'Cough and cold',
-                'Stomach pain',
-                'Back pain',
-                'Other symptoms'
-            ]
-        },
-        'fever': {
-            text: "Please tell me your temperature in degrees (fahrenheit).",
-            options: ["98-99°F", "100-101°F", "102°F or higher"]
-        },
-        'fever response': {
-            text: "Fever and headache can be symptoms of various conditions like flu, viral infection, or stress. I recommend:\n\n• Rest and stay hydrated\n• Take over-the-counter pain relievers\n• Monitor your temperature\n• If fever persists for more than 3 days, consult a doctor\n\nWould you like to book an appointment with a doctor?",
-            
-            options: ['Book appointment', 'More health tips', 'Ask another question']
-        },
-        '98-99°f': {
-            text: "Your temperature is between 98 to 99°F. This is normal. No need to worry. Stay hydrated and take rest.",
-            options: [
-                'Health tips',
-                'Book appointment',
-                'Ask another question'
-            ]
-        },
-        '100-101°f': {
-            text: "Your temperature is between 100 to 101°F. This shows mild fever. Please take rest and drink warm fluids.",
-            options: [
-                'Health tips',
-                'Book appointment',
-                'Emergency info'
-            ]
-        },
-        '102°f or higher': {
-            text: "Your temperature is 102°F or higher. This is high fever. Please consult a doctor immediately.",
-            options: [
-                'Book appointment',
-                'Emergency info',
-                'Ask another question'
-            ]
-        },
-        'headache': {
-            text: "For headache, here are some recommendations. Get enough rest, drink plenty of water, and avoid screen time. If pain continues, consult a doctor.",
-            options: [
-                'Book appointment',
-                'More remedies',
-                'Ask another question'
-            ]
-        },
-        'cough and cold': {
-            text: "For cough and cold, here are some recommendations:\n\n• Get plenty of rest\n• Drink warm fluids\n• Use a humidifier\n• Gargle with salt water\n• Take vitamin C\n\nIf symptoms worsen or persist beyond a week, please consult a doctor.",
-            options: ['Book appointment', 'More remedies', 'Ask another question']
-        },
-        'stomach pain': {
-            text: "Stomach pain can have various causes. Here's what you can do:\n\n• Avoid heavy meals\n• Stay hydrated\n• Try peppermint tea\n• Rest in a comfortable position\n\n⚠️ If you experience severe pain, vomiting, or fever, seek immediate medical attention.",
-            options: ['Book appointment', 'Emergency info', 'Ask another question']   },
-        'back pain': {
-            text: "For back pain relief:\n\n• Apply heat or cold packs\n• Gentle stretching exercises\n• Maintain good posture\n• Avoid heavy lifting\n• Consider physiotherapy\n\nIf pain is severe or persistent, I recommend consulting an orthopedic specialist.",
-            options: ['Book appointment', 'Exercise tips', 'Ask another question']
-        },
-        'book appointment': {
-            text: "Great! I can help you book an appointment with one of our doctors. You'll be redirected to the appointment booking section. Would you like to proceed?",
-            options: ['Yes, book now', 'Not now', 'Ask another question']
-        },
-        'health tips': {
-            text: "Here are some general health tips:\n\n✓ Drink 8 glasses of water daily\n✓ Exercise for 30 minutes daily\n✓ Get 7-8 hours of sleep\n✓ Eat a balanced diet\n✓ Practice stress management\n✓ Regular health check-ups\n\nWhat specific health topic interests you?",
-            options: [
-                'Nutrition advice',
-                'Exercise routines',
-                'Mental health',
-                'Ask another question'
-            ]
-        },
-        'emergency info': {
-            text: "🚨 EMERGENCY INFORMATION\n\nCall emergency services (911/108) immediately if you experience:\n\n• Chest pain or pressure\n• Difficulty breathing\n• Severe bleeding\n• Loss of consciousness\n• Severe allergic reaction\n• Stroke symptoms (FAST)\n\nFor non-emergencies, you can book an appointment with our doctors.",
-            options: ['Book appointment', 'Ask another question']
-        },
-        'nutrition advice': {
-            text: "Nutrition Tips:\n\n• Include fruits and vegetables in every meal\n• Choose whole grains over refined grains\n• Limit sugar and processed foods\n• Include lean proteins\n• Healthy fats from nuts and fish\n• Control portion sizes\n\nWould you like specific dietary recommendations?",
-            options: ['Weight management', 'Diabetes diet', 'Heart-healthy diet', 'Ask another question']
-        },
-        'exercise routines': {
-            text: "Exercise Recommendations:\n\n🏃 Cardio: 150 minutes/week\n💪 Strength training: 2-3 times/week\n🧘 Flexibility: Daily stretching\n\nBeginner-friendly exercises:\n• Walking\n• Swimming\n• Cycling\n• Yoga\n\nAlways consult a doctor before starting a new exercise program.",
-            options: ['More fitness tips', 'Book appointment', 'Ask another question']
-        },
-        'mental health': {
-            text: "Mental Health is Important:\n\n• Practice mindfulness and meditation\n• Maintain social connections\n• Get regular exercise\n• Ensure adequate sleep\n• Seek professional help when needed\n• Practice gratitude\n\nWe have mental health specialists available. Would you like to book a consultation?",
-            options: ['Book appointment', 'Stress management tips', 'Ask another question']
-        },
-        'default': {
-            text: "I'm here to help! I can assist you with:\n\n• Symptom checking\n• Health tips and advice\n• Booking appointments\n• Emergency information\n• General health questions\n\nWhat would you like to know?",
-            options: [
-                'Check symptoms',
-                'Health tips',
-                'Book appointment',
-                'Emergency info'
-            ]
+        'error': {
+            text: "I'm experiencing technical difficulties right now. Please try again later or contact support.",
+            options: ['Try again', 'Contact support']
         }
     };
 
     constructor(
         private authService: AuthService,
+        private openaiService: OpenaiService,
         @Optional() public dialogRef: MatDialogRef<AiChatbotComponent>,
         @Optional() @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
@@ -215,7 +120,7 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
 
         // Send greeting message
         setTimeout(() => {
-            this.addBotMessage(this.responses['greeting'].text, this.responses['greeting'].options);
+            this.addBotMessage(this.fallbackResponses['greeting'].text, this.fallbackResponses['greeting'].options);
         }, 500);
 
         this.saveChatSessions();
@@ -242,7 +147,7 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
         }
     }
 
-    sendMessage(): void {
+    async sendMessage(): Promise<void> {
         if (!this.userInput.trim()) return;
 
         const userMessage: Message = {
@@ -259,9 +164,9 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
 
         // Simulate typing
         this.isTyping = true;
-        setTimeout(() => {
+        setTimeout(async () => {
             this.isTyping = false;
-            this.generateResponse(input);
+            await this.generateResponse(input);
         }, 1000 + Math.random() * 1000);
     }
 
@@ -270,23 +175,26 @@ export class AiChatbotComponent implements OnInit, AfterViewChecked {
         this.sendMessage();
     }
 
-    generateResponse(input: string): void {
-        let response = this.responses['default'];
+    async generateResponse(input: string): Promise<void> {
+        try {
+            // Use OpenAI to generate response
+            const response = await this.openaiService.generateResponse(input, this.messages);
 
-        // Match user input to responses
-        for (const key in this.responses) {
-            if (input.includes(key.toLowerCase())) {
-                response = this.responses[key];
-                break;
+            // Add the response to chat
+            this.addBotMessage(response);
+        } catch (error) {
+            console.error('Error generating AI response:', error);
+
+            // Fallback to basic response if API fails
+            let fallbackResponse = this.fallbackResponses['error'];
+
+            // Check for greetings as fallback
+            if (input.match(/\b(hi|hello|hey|greetings)\b/)) {
+                fallbackResponse = this.fallbackResponses['greeting'];
             }
-        }
 
-        // Check for greetings
-        if (input.match(/\b(hi|hello|hey|greetings)\b/)) {
-            response = this.responses['greeting'];
+            this.addBotMessage(fallbackResponse.text, fallbackResponse.options);
         }
-
-        this.addBotMessage(response.text, response.options);
     }
 
     addBotMessage(text: string, options?: string[]): void {

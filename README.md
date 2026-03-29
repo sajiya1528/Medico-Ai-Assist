@@ -127,6 +127,24 @@ A complete Angular-based Doctor Appointment and Consultation system built for un
 4. **Open in browser**
    Navigate to `http://localhost:4200`
 
+### OpenAI Integration Setup (Optional)
+
+To enable real AI responses in the chatbot:
+
+1. **Get OpenAI API Key**
+   - Visit [OpenAI Platform](https://platform.openai.com/api-keys)
+   - Create a new API key
+
+2. **Configure Environment**
+   - Copy `.env.example` to `.env`
+   - Add your API key: `OPENAI_API_KEY=your_actual_api_key_here`
+
+3. **Update Environment Files**
+   - Edit `src/environments/environment.ts` and `src/environments/environment.prod.ts`
+   - Replace `your_openai_api_key_here` with your actual API key
+
+**⚠️ Security Note**: API keys should never be committed to version control. In production, use environment variables or a backend proxy for API calls.
+
 ## Project Structure
 
 ```
